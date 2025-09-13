@@ -1,13 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
-import "@/styles/find-donors.css";
 import { useState, useEffect, useCallback } from "react";
 
 export default function FindDonors() {
     const [donors, setDonors] = useState([]);
 
     const searchDonors = useCallback(() => {
-        // Fetch donors (replace with your logic)
+        // Replace this with a real fetch later
         setDonors([
             { id: 1, name: "John Doe", blood: "A+" },
             { id: 2, name: "Jane Smith", blood: "O-" },

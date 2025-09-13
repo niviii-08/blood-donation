@@ -1,10 +1,10 @@
 // bloodconnect.js
 
-// Global variables
 let currentUser = null;
 let searchResults = [];
+let dashboardInterval;
 
-// Emergency request function
+// Emergency request
 function emergencyRequest() {
     showNotification('Emergency request activated! Notifying nearby donors and blood banks...');
 
@@ -17,23 +17,30 @@ function emergencyRequest() {
     }, 4000);
 }
 
-// Search functionality
+// Search donors
 function searchDonors() {
-    const bloodType = document.getElementById('blood-type').value;
-    const location = document.getElementById('location').value;
-    const urgency = document.getElementById('urgency').value;
+    const bloodType = document.getElementById('blood-type')?.value;
+    const location = document.getElementById('location')?.value;
+    const urgency = document.getElementById('urgency')?.value;
 
     if (!bloodType) {
         showNotification('Please select a blood type first');
         return;
     }
 
-    document.getElementById('search-text').style.display = 'none';
-    document.getElementById('search-loading').style.display = 'inline-block';
+    const searchText = document.getElementById('search-text');
+    const searchLoading = document.getElementById('search-loading');
+
+    if (searchText && searchLoading) {
+        searchText.style.display = 'none';
+        searchLoading.style.display = 'inline-block';
+    }
 
     setTimeout(() => {
-        document.getElementById('search-text').style.display = 'inline-block';
-        document.getElementById('search-loading').style.display = 'none';
+        if (searchText && searchLoading) {
+            searchText.style.display = 'inline-block';
+            searchLoading.style.display = 'none';
+        }
 
         const donorCount = Math.floor(Math.random() * 20) + 5;
         showNotification(`Found ${donorCount} compatible ${bloodType} donors nearby!`);
@@ -41,49 +48,45 @@ function searchDonors() {
     }, 2000);
 }
 
-// Registration functions
+// Registration
 function showLogin() {
-    showNotification('Login functionality - Would integrate with Aadhaar verification');
+    showNotification('Login functionality - Aadhaar verification pending');
 }
-
 function showRegister() {
     showNotification('Registration with Aadhaar verification - Preventing fraud');
 }
-
 function registerDonor() {
     showNotification('Donor registration started - Aadhaar verification required');
 }
-
 function findBlood() {
-    document.getElementById('blood-type').focus();
+    document.getElementById('blood-type')?.focus();
     showNotification('Enter your blood type requirements');
 }
 
-// Dashboard functions
+// Dashboard
 function viewDonors() {
     showNotification('Loading donor profiles with eligibility status...');
 }
-
 function viewBloodBanks() {
     showNotification('Loading blood bank locations with live stock data...');
 }
-
 function viewEmergencies() {
     showNotification('Loading active emergency requests in your area...');
 }
 
-// Location update
+// Location
 function updateLocation() {
-    const location = document.getElementById('location').value;
-    if (location.length > 3) {
+    const location = document.getElementById('location')?.value;
+    if (location && location.length > 3) {
         showNotification(`Searching in ${location} area...`);
     }
 }
 
-// Notification system
+// Notification
 function showNotification(message) {
     const notification = document.getElementById('notification');
     const notificationText = document.getElementById('notification-text');
+    if (!notification || !notificationText) return;
 
     notificationText.textContent = message;
     notification.classList.add('show');
@@ -93,9 +96,11 @@ function showNotification(message) {
     }, 4000);
 }
 
-// Update dashboard with live data
+// Dashboard live data
 function updateDashboard() {
     const bloodStock = document.getElementById('blood-stock');
+    if (!bloodStock) return;
+
     const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
     const statuses = ['High', 'Low', 'Critical', 'Available'];
     const colors = ['#48bb78', '#ed8936', '#e53e3e', '#48bb78'];
@@ -113,25 +118,24 @@ function updateDashboard() {
     }, 1000);
 }
 
-// Initialize app
-document.addEventListener('DOMContentLoaded', function () {
-    setInterval(updateDashboard, 30000);
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    if (!dashboardInterval) {
+        dashboardInterval = setInterval(updateDashboard, 30000);
+    }
 
     setTimeout(() => {
         showNotification('Welcome to BloodConnect - Your life-saving platform is ready!');
     }, 1000);
-});
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
     });
 });

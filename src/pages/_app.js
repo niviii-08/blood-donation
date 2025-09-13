@@ -1,7 +1,5 @@
-import "@/styles/globals.css";        // already exists usually
-import "@/styles/bloodconnect.css";  // ✅ add your global styles here
-import "@/styles/donate.css";
-import "@/styles/find-donors.css";
+// src/pages/_app.js
+import "@/styles/bloodconnect.css"; // ✅ global import
 
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;

@@ -273,3 +273,16 @@ footer {
   opacity: 1;
   pointer-events: auto;
 }
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 1rem;
+    background: #e53e3e;
+    padding: 1rem;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}

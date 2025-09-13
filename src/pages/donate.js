@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Script from "next/script";
-import "@/styles/donate.css";
 
 export default function Donate() {
     return (
@@ -15,6 +14,7 @@ export default function Donate() {
                 {/* Add your form here */}
             </main>
 
+            {/* Make sure public/js/donate.js actually exists */}
             <Script src="/js/donate.js" strategy="afterInteractive" />
         </>
     );
