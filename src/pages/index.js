@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Script from "next/script";
-import "@/styles/bloodconnect.css"; // move CSS into src/styles/ instead of public/css
+import Link from "next/link";
+import "@/styles/bloodconnect.css";
 
 export default function Home() {
   return (
@@ -9,11 +10,40 @@ export default function Home() {
         <title>BloodConnect</title>
       </Head>
 
-      <div>
-        {/* Paste your HTML body content here */}
-      </div>
+      <header>
+        <div className="container nav">
+          <div className="logo">BloodConnect</div>
+          <nav>
+            <ul className="nav-links">
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/find-donors">Find Donors</Link></li>
+              <li><Link href="/donate">Donate</Link></li>
+              <li><Link href="/emergency">Emergency</Link></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
 
-      {/* Load your JS correctly */}
+      <section className="hero">
+        <div className="container hero-content">
+          <div className="hero-text">
+            <h1>Donate Blood, Save Lives</h1>
+            <p>Join our mission to connect donors with those in need.</p>
+            <div className="hero-buttons">
+              <Link href="/find-donors" className="btn btn-primary">Find Donors</Link>
+              <Link href="/donate" className="btn btn-outline">Donate Now</Link>
+            </div>
+          </div>
+          <div className="hero-visual">
+            <button className="emergency-button">Emergency</button>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>&copy; {new Date().getFullYear()} BloodConnect. All rights reserved.</p>
+      </footer>
+
       <Script src="/js/bloodconnect.js" strategy="afterInteractive" />
     </>
   );
