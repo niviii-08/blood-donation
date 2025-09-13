@@ -273,6 +273,10 @@ footer {
   opacity: 1;
   pointer-events: auto;
 }
+
+/* ==========================
+   Responsive
+========================== */
 @media (max-width: 768px) {
   .nav-links {
     flex-direction: column;
